@@ -1,50 +1,75 @@
 <html>
 <head>
-  <script type="text/javascript">
-    /* Notes
+    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js">
+    </script>
+    <script type="text/javascript">
+        /* Notes
 
-    Is any reuse possible?
-    Framework for a nice UI? icons?
-    https://www.vectorstock.com/royalty-free-vector/team-work-and-organization-icons-4-vector-10384883
+        Is any reuse possible?
+        Framework for a nice UI? icons?
+        https://www.vectorstock.com/royalty-free-vector/team-work-and-organization-icons-4-vector-10384883
 
-    Fewer items on the boards, readability - zoom out a little, lets say they are epics
+        https://www.vectorstock.com/royalty-free-vector/work-schedule-working-environment-vector-11254777
 
-    */
+        https://www.vectorstock.com/royalty-free-vector/office-team-building-concepts-set-vector-17882920
 
+        https://www.vectorstock.com/royalty-free-vector/monster-attacking-icon-set-vector-36527219
 
-    // Data
+        https://www.vectorstock.com/royalty-free-vector/office-people-isometric-set-vector-22705874
+        https://www.vectorstock.com/royalty-free-vector/isometric-packaging-boxes-set-vector-13653813
 
-    /* Classes
-        SimuWorld [maxTicks (iterations to run = 230), tickUnit(default 1 day, days, hours), ]
-            TeamList [...]
-                UpstreamTeam
-                    CreateWork (some teams are upstream and create tasks for other teams?)
-                        Frequency, size/classOfService, dependencies
-                        // Dependency work can be shown as a line between teams
-                        // and it only progresses in the board when both team has burned it down
+        Isometric? more trouble than its worth or cool?
 
-                DownstreamTeam [ID, Name, Crew, events*, meetingRatio, overburdeningRatio]
-                    CrewList [ID, Name, profile (T or I), ]
-                    Board [Columns, downStreamBoard (if any)]
-                        // Columns are same across working team (but not upstream teams)
-                    WorkProfile
-                        // What type of work does this team get
-                    
-            Event [ID, Name, duration, icon, actionOrBlock]
-                // Events are visual indicators that a team is blocked, eg 2 day event, trip, 
-                // Events are probably a bit nice-to-have
+        Fewer items on the boards, readability - zoom out a little, lets say they are epics
 
-        SimuObj
-            Workitem [dtCreated, dtStarted, dtDone, classService, pplInvolved, dependencies]
-                DaysInWaiting w/icons/colors to show severity
-                BurnRemain: pr phase, but are phases the same across teams? maybe they are for now
-    */
+        */
 
-      // Functions
-  </script>
+        /* Classes
+            SimuWorld [maxTicks (iterations to run = 230), tickUnit(default 1 day, days, hours), ]
+                TeamList [...]
+                    UpstreamTeam
+                        CreateWork (some teams are upstream and create tasks for other teams?)
+                            Frequency, size/classOfService, dependencies
+                            // Dependency work can be shown as a line between teams
+                            // and it only progresses in the board when both team has burned it down
+                        Board [...]
+                            // The board is simple and work is just pausing here until it moves forward
+                            // Once the work moves downstream, how much remain does it have?
+                            // Remain is refreshed every time it lands on a team? (avoid loops)
+
+                    DownstreamTeam [ID, Name, Crew, events*, meetingRatio, overburdeningRatio]
+                        CrewList [ID, Name, profile (T or I), ]
+                        Board [Columns, downStreamBoard (if any)]
+                            // Columns are same across working team (but not upstream teams)
+                        WorkProfile
+                            // What type of work does this team get
+                        
+                Event [ID, Name, duration, icon, actionOrBlock]
+                    // Events are visual indicators that a team is blocked, eg 2 day event, trip, 
+                    // Events are probably a bit nice-to-have
+
+            SimuObj
+                Workitem [dtCreated, dtStarted, dtDone, classService, pplInvolved, dependencies]
+                    DaysInWaiting w/icons/colors to show severity
+                    BurnRemain: pr phase, but are phases the same across teams? maybe they are for now
+        */
+
+        // Functions
+    </script>
 </head>
 
 <body>
+    <div id="helloScreen">
+        <!--
+            Show on loading page
+            Select scenario to run?
+        -->
+    </div>
+    <div id="configScreen">
+        <!--
+            Create custom scenarios or adjust existing (shareable URL with seed to get the same scenario?)
+        -->
+    </div>
 
 
 
