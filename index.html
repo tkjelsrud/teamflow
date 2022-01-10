@@ -16,13 +16,22 @@
         https://www.vectorstock.com/royalty-free-vector/monster-attacking-icon-set-vector-36527219
 
         https://www.vectorstock.com/royalty-free-vector/office-people-isometric-set-vector-22705874
+
         https://www.vectorstock.com/royalty-free-vector/isometric-packaging-boxes-set-vector-13653813
 
         Isometric? more trouble than its worth or cool?
 
         Fewer items on the boards, readability - zoom out a little, lets say they are epics
 
+
+        Design principles
+        Sharing a URL means sharing that exact "run", including seeds for random and config
+        Configs are small and modular
+        ?seed=000000&setup=AAA:3:3,BBB:4:2,TEAMC:3:3&scen=scenario-A
+
         */
+
+
 
         /* Classes
             SimuWorld [maxTicks (iterations to run = 230), tickUnit(default 1 day, days, hours), ]
@@ -55,6 +64,11 @@
         */
 
         // Functions
+
+        const queryString = window.location.search;
+        console.log(queryString);
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams);
     </script>
 </head>
 
@@ -71,7 +85,10 @@
         -->
     </div>
 
+    <div id="simulation">
 
-
+        
+    </div>
+    <p>Hello world</p>
 </body>
 </html>
