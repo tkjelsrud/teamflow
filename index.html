@@ -65,10 +65,17 @@
 
         // Functions
 
-        const queryString = window.location.search;
-        console.log(queryString);
-        const urlParams = new URLSearchParams(queryString);
-        console.log(urlParams);
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            seed = "hello";
+            if(urlParams.has('seed')) {
+                seed = urlParams.get('seed');
+            }
+
+            Math.seedrandom(seed);
+            console.log(Math.random()); // Always 0.9282578795792454
+            console.log(Math.random()); // Always 0.3752569768646784
+        }
     </script>
 </head>
 
