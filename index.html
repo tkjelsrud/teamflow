@@ -1,14 +1,13 @@
 <html>
 <head>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
     </script>
     <script type="text/javascript">
         /* Notes
 
         Is any reuse possible?
         Framework for a nice UI? icons?
-        https://www.vectorstock.com/royalty-free-vector/team-work-and-organization-icons-4-vector-10384883
-
+        
         https://www.vectorstock.com/royalty-free-vector/work-schedule-working-environment-vector-11254777
 
         https://www.vectorstock.com/royalty-free-vector/office-team-building-concepts-set-vector-17882920
@@ -19,10 +18,13 @@
 
         https://www.vectorstock.com/royalty-free-vector/isometric-packaging-boxes-set-vector-13653813
 
+        ---
+        https://www.vectorstock.com/royalty-free-vector/team-work-and-organization-icons-4-vector-10384883
+
+
         Isometric? more trouble than its worth or cool?
 
         Fewer items on the boards, readability - zoom out a little, lets say they are epics
-
 
         Design principles
         Sharing a URL means sharing that exact "run", including seeds for random and config
@@ -65,8 +67,56 @@
 
         // Functions
 
+        function animTest() {
+            // zdog-demo.js
+
+            // create illo
+            illo = new Zdog.Illustration({
+                element: '.zdog-canvas',
+                dragRotate: true,
+                zoom: 4,
+            });
+
+            // add circle
+            new Zdog.Rect({
+                addTo: illo,
+                width: 16,
+                height: 16,
+                translate: { x: -60, y: -5},
+                stroke: 4,
+                color: '#E62',
+                fill: true,
+            });
+
+            new Zdog.Rect({
+                addTo: illo,
+                width: 16,
+                height: 16,
+                translate: { x: 10, y: 5},
+                stroke: 4,
+                color: '#E62',
+                fill: true,
+            });
+
+            function animate() {
+                //illo.rotate.y += 0.03;
+                //rect.translate.x += 0.01;
+                illo.updateRenderGraph();
+                requestAnimationFrame( animate );
+            }
+
+            animate();
+
+            // update & render
+            illo.updateRenderGraph();
+        }
+
+        
+        var illo = false;
+
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
+
             seed = "hello";
             if(urlParams.has('seed')) {
                 seed = urlParams.get('seed');
@@ -75,11 +125,16 @@
             Math.seedrandom(seed);
             console.log(Math.random()); // Always 0.9282578795792454
             console.log(Math.random()); // Always 0.3752569768646784
+
+            animTest();
         }
     </script>
+    <script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
 </head>
 
 <body>
+    <canvas class="zdog-canvas" width="900" height="600"></canvas>
+
     <div id="helloScreen">
         <!--
             Show on loading page
