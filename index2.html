@@ -1,0 +1,135 @@
+<html>
+    <head>
+
+        <style>
+            body {
+                font-family: Verdana;
+                font-size: 11px;
+            }
+            #board {
+                width: 100%;
+                height: 60%;
+            }
+            #texter {
+                width: 100%;
+                height: 40%;
+                background-color: beige;
+                font-family: monospace;
+            }
+            .node {
+                position: absolute;
+                background-color: beige;
+                padding: 8px;
+                width: 100px;
+                height: 60px;
+                box-shadow: 2px 2px grey;
+            }
+            .attribute {
+                position: relative;
+                background-color:burlywood;
+                padding: 2px;
+                width: 80px;
+                height: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="board"></div>
+        <div id="texter"><textarea style="width:100%;height:50%"></textarea></div>
+
+        <script type="text/javascript">
+            class Point {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                }
+            }
+
+            class Attribute {
+                constructor(label, value) {
+                    this.label = label;
+                    this.value = value;
+                }
+            }
+
+            class Node {
+                static nId = 0;
+
+                constructor(label, x, y) {
+                    this.label = label;
+                    this.loc = new Point(x, y);
+                    this.id = Node.nId++;
+                    this.aList = new Array(new Attribute("test", 123));
+                }
+                toJson() {
+                    return "";
+                }
+            }
+
+            let nList = new Array(new Node("123", 100, 150), new Node("456", 200, 0), new Node("789", 200, 200));
+
+            nList.forEach(x => {
+                let div = document.createElement("div");
+                div.innerHTML = x.label;
+                div.id = x.id;
+                div.className = "node";
+                div.style.left = x.loc.x;
+                div.style.top = x.loc.y;
+                div.onmousedown = function() {mydragg.startMoving(this, event);};
+                div.onmouseup = function() {mydragg.stopMoving();};
+
+                x.aList.forEach(a => {
+                    let aDiv = document.createElement("div");
+                    aDiv.className = "attribute";
+                    aDiv.innerHTML = a.label;
+                    div.appendChild(aDiv);
+                });
+
+                document.getElementById("board").appendChild(div);
+            });
+
+            var mydragg = function() {
+                return {
+                    move: function(divid, xpos, ypos) {
+                      divid.style.left = xpos + 'px';
+                      divid.style.top = ypos + 'px';
+                    },
+                    startMoving: function(divid, evt) {
+                      evt = evt || window.event;
+                      var posX = evt.clientX,
+                        posY = evt.clientY,
+                        divTop = divid.style.top,
+                        divLeft = divid.style.left,
+                        eWi = parseInt(divid.style.width),
+                        eHe = parseInt(divid.style.height);
+                    //document.getElementById("board").style.cursor = 'move';
+                    divTop = divTop.replace('px', '');
+                    divLeft = divLeft.replace('px', '');
+                    var diffX = posX - divLeft,
+                        diffY = posY - divTop;
+                    document.onmousemove = function(evt) {
+                        evt = evt || window.event;
+                        var posX = evt.clientX,
+                        posY = evt.clientY,
+                        aX = posX - diffX,
+                        aY = posY - diffY;
+                        if (aX < 0) aX = 0;
+                        if (aY < 0) aY = 0;
+                        //if (aX + eWi > cWi) aX = cWi - eWi;
+                        //if (aY + eHe > cHe) aY = cHe - eHe;
+                        mydragg.move(divid, aX, aY);
+                        //                        //cWi = parseInt(document.getElementById(container).style.width),
+                        //cHe = parseInt(document.getElementById(container).style.height);
+                    }
+                    },
+                    stopMoving: function() {
+                        var a = document.createElement('script');
+                        document.getElementById("board").style.cursor = 'default';
+                        document.onmousemove = function() {}
+                    },
+                }
+            }();
+        </script>
+    </body>
+</html>
